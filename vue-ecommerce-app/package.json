@@ -1,0 +1,26 @@
+{
+  "name": "vue-ecommerce-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "pinia": "^3.0.4",
+    "primeicons": "^7.0.0",
+    "primevue": "^3.0.0",
+    "tailwindcss": "^2.0.0",
+    "vue": "^3.2.0",
+    "vue-router": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@vitejs/plugin-vue": "^2.3.4",
+    "autoprefixer": "^10.0.0",
+    "postcss": "^8.0.0",
+    "typescript": "^4.0.0",
+    "vite": "^2.0.0"
+  }
+}
