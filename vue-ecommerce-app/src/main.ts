@@ -3,8 +3,11 @@ import App from './App.vue';
 import router from './router';
 import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config'; 
+import ToastService from 'primevue/toastservice';
 import './assets/styles/main.css';
 import 'primeicons/primeicons.css';
+import 'primevue/resources/themes/saga-blue/theme.css';
+import 'primevue/resources/primevue.min.css';
 
 const app = createApp(App);
 
@@ -13,5 +16,6 @@ app.use(pinia);
 app.use(router);
 
 app.use(PrimeVue); 
+app.use(ToastService);
 
 app.mount('#app');

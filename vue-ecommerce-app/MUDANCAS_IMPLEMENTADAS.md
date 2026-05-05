@@ -274,3 +274,29 @@ const menuItems = [
 ---
 
 **Uma aplicação Vue 3 totalmente funcional, segura e com componentes profissionais PrimeVue!** 🎉
+
+---
+
+## 📝 Atualizações recentes (04 de maio de 2026)
+
+Pequeno resumo das mudanças realizadas durante a etapa final de integração/depuração:
+
+- `src/stores/auth.ts`: store de autenticação centralizada (`user`, `token`, `isAuthenticated`) usada por `Header.vue`, `Login.vue` e `Register.vue`.
+- `src/views/consumer/Register.vue`: formulário de registro com validação Vuelidate (nome, e-mail, senha >=6, confirmar senha). A validação de `confirmPassword` foi adaptada para comparação direta e normalização com `trim()` antes do envio para evitar diferenças por espaços invisíveis.
+- `src/views/consumer/Login.vue` e `Register.vue`: removido o uso problemático de `primevue/password` (causava erro runtime no ambiente); adicionado um toggle local (ícone eye/eye-slash) que alterna `type` entre `password` e `text` para mascarar/mostrar a senha, mantendo acessibilidade e controle total do comportamento.
+- `src/views/consumer/Checkout.vue`: substituídos valores hardcoded por `subtotal` reativo que consome `useCartStore().totalAmount` e formato com duas casas decimais; adicionado fluxo de confirmação que limpa o carrinho, mostra `Toast` e redireciona para a Home.
+- `src/views/consumer/Cart.vue`: calcula e exibe `Subtotal` por item (`price * quantity`) e usa `cartStore.totalAmount` para o total shown no componente.
+- `src/components/common/Header.vue`: já consome `authStore` reativo e exibe botões de login/register ou logout conforme `isAuthenticated`.
+
+Observações:
+
+- A opção de reintroduzir `primevue/password` com `toggleMask` está preservada como tarefa opcional; optei por uma solução segura e controlada (toggle custom) para evitar regressões no ambiente atual.
+- Rodei `npm run build` após as alterações para garantir que a aplicação compile corretamente no ambiente local — build OK.
+
+Se quiser, eu posso:
+
+- Reintroduzir `primevue/password` e testar mais profundamente (opcional).
+- Criar um commit com estas alterações e uma mensagem descritiva.
+- Adicionar uma seção curta no `README.md` explicando como testar o fluxo de autenticação localmente.
+
+---

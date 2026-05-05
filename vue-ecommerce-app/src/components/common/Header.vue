@@ -27,21 +27,18 @@
 
         <!-- ADMIN (só se for admin) -->
         <router-link 
-          v-if="userStore.isAdmin"
+          v-if="authStore.isAdmin"
           to="/admin/dashboard" 
           class="admin-btn"
         >
           <i class="pi pi-cog"></i>
         </router-link>
 
-        <!-- LOGIN -->
-        <button 
-          v-if="!userStore.isAuthenticated"
-          @click="loginAsAdmin"
-          class="login-btn"
-        >
-          Entrar
-        </button>
+        <!-- LOGIN/REGISTER -->
+        <div v-if="!authStore.isAuthenticated" class="auth-links">
+          <router-link to="/login" class="login-btn">Entrar</router-link>
+          <router-link to="/register" class="register-btn">Criar Conta</router-link>
+        </div>
 
         <!-- LOGOUT -->
         <button 
@@ -62,30 +59,19 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
-import { useUserStore } from '@/stores/user'
+import { useAuthStore } from '@/stores/auth'
 
 const cartStore = useCartStore()
-const userStore = useUserStore()
+const authStore = useAuthStore()
 const router = useRouter()
 
 const cartCount = computed(() =>
   cartStore.cartItems.reduce((sum, item) => sum + item.quantity, 0)
 )
 
-const loginAsAdmin = () => {
-  userStore.login({
-    id: '1',
-    name: 'Admin',
-    role: 'admin'
-  })
-
-  router.push('/admin/dashboard')
-}
-
 const logout = () => {
-  userStore.logout()
-
-  router.push('/')
+  authStore.logout()
+  router.push('/login')
 }
 </script>
 
@@ -184,8 +170,13 @@ const logout = () => {
   background: #2563eb;
 }
 
-.login-btn {
-  background: #2563eb;
+.auth-links {
+  display: flex;
+  gap: 10px;
+}
+
+.register-btn {
+  background: #10b981;
   color: white;
   padding: 6px 12px;
   border-radius: 8px;
@@ -193,8 +184,8 @@ const logout = () => {
   transition: 0.2s;
 }
 
-.login-btn:hover {
-  background: #1d4ed8;
+.register-btn:hover {
+  background: #059669;
 }
 
 .logout-btn {

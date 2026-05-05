@@ -14,7 +14,7 @@
         <div class="summary">
           <div class="row">
             <span>Subtotal</span>
-            <span>R$ 199,90</span>
+            <span>R$ {{ formatPrice(subtotal) }}</span>
           </div>
 
           <div class="row">
@@ -26,11 +26,11 @@
 
           <div class="row total">
             <span>Total</span>
-            <span>R$ 199,90</span>
+            <span>R$ {{ formatPrice(subtotal) }}</span>
           </div>
         </div>
 
-        <button class="checkout-btn">
+        <button class="checkout-btn" @click="confirmOrder">
           Confirmar Pedido
         </button>
 
@@ -42,6 +42,27 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useToast } from 'primevue/usetoast'
+import { useCartStore } from '@/stores/cart'
+
+const router = useRouter()
+const toast = useToast()
+const cartStore = useCartStore()
+
+const subtotal = computed(() => cartStore.totalAmount)
+
+const formatPrice = (value: number) => {
+  return value.toFixed(2)
+}
+
+const confirmOrder = () => {
+  // Simulate order confirmation
+  toast.add({ severity: 'success', summary: 'Pedido', detail: 'Pedido confirmado!', life: 3000 })
+  cartStore.clearCart()
+  router.push({ name: 'Home' })
+}
 </script>
 
 <style scoped>
